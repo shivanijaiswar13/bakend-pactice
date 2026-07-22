@@ -1,6 +1,8 @@
 import React from 'react'
+import {useNavigate,Link} from "react-router";
 
 const Register = () => {
+  const navigate = useNavigate()
   const handleSubmit = (e)=>{
         e.preventDefault()
 
@@ -25,6 +27,7 @@ const Register = () => {
                 </div>
                 <button className='button primary-button'>Login</button>
             </form>
+            <p>Already have an account? <Link hrefLang=''>Login</Link></p>
         </div>
     </main>
   )
