@@ -27,7 +27,7 @@ const Register = () => {
                 </div>
                 <button className='button primary-button'>Login</button>
             </form>
-            <p>Already have an account? <Link hrefLang=''>Login</Link></p>
+            <p>Already have an account? <Link to={"/login"}>Login</Link></p>
         </div>
     </main>
   )
