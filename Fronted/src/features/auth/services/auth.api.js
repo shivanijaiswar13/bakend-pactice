@@ -1,7 +1,7 @@
 import axios from "axios";
 
 
-export async function register(username,email,password) {
+export async function register({username,email,password}) {
     try {
         
    
@@ -15,3 +15,16 @@ export async function register(username,email,password) {
         console.log(error);
     }
 }
+
+export async function login({email,password}){
+    try {
+        const response = await axios.post("http://localhost:3000/api/login",{
+            email,password
+        },{withCredentials:true})
+        return response.data
+    } catch (error) {
+        console.log(error)
+    }
+}
+
+
