@@ -22,4 +22,11 @@ export const useAuth = () =>{
         setUser(data.user)
         setLoading(false)
     }
+
+    const handleLogout = async ()=>{
+        setLoading(true)
+        const data = await logout()
+        setUser(null)
+        setLoading(false)
+    }
 }
