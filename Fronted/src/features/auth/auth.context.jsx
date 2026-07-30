@@ -9,10 +9,20 @@ export const AuthProvider = ({children}) => {
 
     useEffect(()=>{
         const getAndSetUser = async ()=>{
-            const data = await getMe()
+            try {
+                const data = await getMe()
             setUser(data.user)
-            setLoading(false)
+            } catch (error) {
+                console.log("not logged in",error)
+                setUser(null)
+            }finally{
+                setLoading(false)
+
+            }
+            
+            
         }
+        getAndSetUser()
     },[])
 
     return(
