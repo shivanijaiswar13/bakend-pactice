@@ -2,8 +2,6 @@ import { useContext ,useEffect} from "react";
 import { AuthContext } from "../auth.context";
 import { login,register,logout,getMe} from "../services/auth.api"
     
-
-
 export const useAuth = () =>{
     const context = useContext(AuthContext)
     const {user,setUser,loading,setLoading} = context
@@ -20,8 +18,6 @@ export const useAuth = () =>{
             setLoading(false)
         }
         
-        
-
     }
     const handleRegister = async ({username,email,password})=>{
         setLoading(true)
@@ -33,8 +29,6 @@ export const useAuth = () =>{
         }finally{
             setLoading(false)
         }
-        
-        
     }
     const handleLogout = async ()=>{
         setLoading(true)
@@ -45,16 +39,22 @@ export const useAuth = () =>{
             console.log(error)
         }finally{
             setLoading(false)
-        }
-        
+        }   
     }
-    return {user,loading,handleRegister,handleLogin,handleLogout}
-}
-useEffect(()=>{
+    useEffect(()=>{
         const getAndSetUser = async()=>{
-            const data = await getMe()
+            try {
+                const data = await getMe()
             setUser(data.user)
-            setLoading(false)
+            } catch (error) {
+                
+            }finally{
+                setLoading(false)
+            }
         }
         getAndSetUser()
     },[])
+    
+    return {user,loading,handleRegister,handleLogin,handleLogout}
+}
+

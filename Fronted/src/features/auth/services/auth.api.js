@@ -38,7 +38,7 @@ export async function logout() {
         )
         return response.data
     } catch (error) {
-        console.log(error)
+        
     }
 }
 
@@ -47,8 +47,7 @@ export async function getMe() {
         const response = await api.get("/api/auth/get-me",)
         return response.data
     } catch (error) {
-        console.log(error)
-        throw error;
+        
     }
 }
 
