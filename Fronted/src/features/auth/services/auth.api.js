@@ -28,6 +28,7 @@ export async function login({email,password}){
         return response.data
     } catch (error) {
         console.log(error)
+        throw error
     }
 }
 
@@ -47,6 +48,7 @@ export async function getMe() {
         return response.data
     } catch (error) {
         console.log(error)
+        throw error;
     }
 }
 
