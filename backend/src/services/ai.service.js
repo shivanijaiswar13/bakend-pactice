@@ -6,7 +6,7 @@ const ai = new GoogleGenAI({
 
 async function invokeGeminiAi() {
     const response = await ai.models.generateContent({
-        model: "gemini-2.5-flash",
+        model: "gemini-3.5-flash",
         contents: "Hello gemini ! Explain what is Interview ? "
     })
     console.log(response.text)
