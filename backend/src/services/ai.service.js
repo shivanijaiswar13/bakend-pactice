@@ -18,19 +18,19 @@ async function invokeGeminiAi() {
 const interviewReportSchema =z.object({
     matchScore:z.number().describe("A score between 0 and 100 indicating how well the candidate's profile matches the job describe"),
     technicalQuestions: z.array(z.object({
-        question: z.string().description("The technical question can be asked in the interview"),
+        question: z.string().describe("The technical question can be asked in the interview"),
         intention: z.string().describe("The intention of interviewer behind asking this question"),
         answer: z.string().describe("How to answer this question, what points to cover, what approach to take etc.")
-    })).description("Technical questions that can be asked in the interview along with their intention and how to answer them"),
+    })).describe("Technical questions that can be asked in the interview along with their intention and how to answer them"),
     behavioralQuestions: z.array(z.object({
-        question: z.string().description("The technical question can be asked in the interview"),
+        question: z.string().describe("The technical question can be asked in the interview"),
         intention: z.string().describe("The intention of interviewer behind asking this question"),
         answer: z.string().describe("How to answer this question, what points to cover, what approach to take etc.")
-    })).description("Behavioral questions that can be asked in the interview along with their intention and how to answer them"),
+    })).describe("Behavioral questions that can be asked in the interview along with their intention and how to answer them"),
     skillGaps: z.array(z.object({
         skill: z.string().describe("The skill which the candidate is lacking"),
         severity: z.enum([ "low", "medium", "high" ]).describe("The severity of this skill gap, i.e. how important is this skill for the job and how much it can impact the candidate's chances")
-    })).description("List of skill gaps in the candidate's profile along with their severity"),
+    })).describe("List of skill gaps in the candidate's profile along with their severity"),
     preparationPlan: z.array(z.object({
         day: z.number().describe("The day number in the preparation plan, starting from 1"),
         focus: z.string().describe("The main focus of this day in the preparation plan, e.g. data structures, system design, mock interviews etc."),
@@ -38,14 +38,20 @@ const interviewReportSchema =z.object({
     })).describe("A day-wise preparation plan for the candidate to follow in order to prepare for the interview effectively"),
 })
 async function generateInterviewReport({resume,selfDescription,jobDescription}) {
+
+    const prompt = `Generate an interview report for a candidate with the following details:
+                    Resume: ${resume}
+                    Self Description: ${selfDescription}
+                    Job Description: ${jobDescription}`
     const response = await ai.models.generateContent({
         model: "gemini-3.5-flash",
-        contents: "",
+        contents: prompt,
         config:{
             responseMimeType: "application/json",
             responseJsonSchema:zodToJsonSchema(interviewReportSchema)
         }
     })
+    console.log(JSON.parse(response.text))
 }
 
-module.exports = invokeGeminiAi
+module.exports = generateInterviewReport
