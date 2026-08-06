@@ -106,7 +106,7 @@ const interviewReportSchema = new mongoose.Schema({
     resume:{
         type: String,
     },
-    selfDescriptions:{
+    selfDescription:{
         type: String,
     },
     matchScore: {

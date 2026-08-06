@@ -8,10 +8,10 @@ const ai = new GoogleGenAI({
 
 async function invokeGeminiAi() {
     const response = await ai.models.generateContent({
-        model: "gemini-3.5-flash",
+        model: "gemini-3-flash-preview",
         contents: "Hello gemini ! Explain what is Interview ? "
     })
-    console.log(response.text)
+    return JSON.parse(response.text)
     
 }
 
@@ -42,16 +42,30 @@ async function generateInterviewReport({resume,selfDescription,jobDescription}) 
     const prompt = `Generate an interview report for a candidate with the following details:
                     Resume: ${resume}
                     Self Description: ${selfDescription}
-                    Job Description: ${jobDescription}`
+                    Job Description: ${jobDescription}
+                    
+                    Generate an interview report strictly according to the provided JSON schema.
+
+Rules:
+- Return only valid JSON.
+- Do not include markdown.
+- Match the JSON schema exactly.
+- Generate a realistic match score.
+- Generate technical questions with intention and ideal answer.
+- Generate behavioral questions.
+- Identify skill gaps.
+- Generate a 30-day preparation plan.`
+
+
     const response = await ai.models.generateContent({
-        model: "gemini-3.5-flash",
+        model: "gemini-3-flash-preview",
         contents: prompt,
         config:{
             responseMimeType: "application/json",
             responseJsonSchema:zodToJsonSchema(interviewReportSchema)
         }
     })
-    console.log(JSON.parse(response.text))
+    console.log(response.text)
 }
 
 module.exports = generateInterviewReport
