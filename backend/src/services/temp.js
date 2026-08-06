@@ -97,10 +97,10 @@ Preferred:
 - Good communication and teamwork skills
 
 Experience:
-0–1 Year (Freshers are welcome)
+0-1 Year (Freshers are welcome)
 
-Employment Type:
-Full-Time
+Employment Type: Full-Time
+
 `;
 
 

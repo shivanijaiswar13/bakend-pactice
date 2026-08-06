@@ -6,14 +6,7 @@ const ai = new GoogleGenAI({
     apiKey : process.env.GOOGLE_GENAI_API_KEY
 });
 
-async function invokeGeminiAi() {
-    const response = await ai.models.generateContent({
-        model: "gemini-3-flash-preview",
-        contents: "Hello gemini ! Explain what is Interview ? "
-    })
-    return JSON.parse(response.text)
-    
-}
+
 
 const interviewReportSchema =z.object({
     matchScore:z.number().describe("A score between 0 and 100 indicating how well the candidate's profile matches the job describe"),
@@ -62,10 +55,11 @@ Rules:
         contents: prompt,
         config:{
             responseMimeType: "application/json",
-            responseJsonSchema:zodToJsonSchema(interviewReportSchema)
+            responseSchema:zodToJsonSchema(interviewReportSchema)
+
         }
     })
-    console.log(response.text)
+    return JSON.parse(response.text)
 }
 
 module.exports = generateInterviewReport
