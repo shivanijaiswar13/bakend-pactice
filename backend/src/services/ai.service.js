@@ -36,9 +36,7 @@ async function generateInterviewReport({resume,selfDescription,jobDescription}) 
                     Resume: ${resume}
                     Self Description: ${selfDescription}
                     Job Description: ${jobDescription}
-                    
                     Generate an interview report strictly according to the provided JSON schema.
-
 Rules:
 - Return only valid JSON.
 - Do not include markdown.
@@ -49,17 +47,14 @@ Rules:
 - Identify skill gaps.
 - Generate a 30-day preparation plan.`
 
-
     const response = await ai.models.generateContent({
         model: "gemini-3-flash-preview",
         contents: prompt,
         config:{
             responseMimeType: "application/json",
             responseSchema:zodToJsonSchema(interviewReportSchema)
-
         }
     })
     return JSON.parse(response.text)
 }
-
 module.exports = generateInterviewReport
