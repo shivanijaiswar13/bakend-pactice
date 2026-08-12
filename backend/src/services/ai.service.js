@@ -47,6 +47,7 @@ Rules:
 - Identify skill gaps.
 - Generate a 30-day preparation plan.`
 
+
     const response = await ai.models.generateContent({
         model: "gemini-3-flash-preview",
         contents: prompt,
@@ -55,6 +56,7 @@ Rules:
             responseSchema:zodToJsonSchema(interviewReportSchema)
         }
     })
+    console.log("AI RESPONSE", response.text);
     return JSON.parse(response.text)
 }
 module.exports = generateInterviewReport
