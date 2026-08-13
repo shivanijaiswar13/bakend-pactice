@@ -6,8 +6,6 @@ const ai = new GoogleGenAI({
     apiKey : process.env.GOOGLE_GENAI_API_KEY
 });
 
-
-
 const interviewReportSchema =z.object({
     matchScore:z.number().describe("A score between 0 and 100 indicating how well the candidate's profile matches the job describe"),
     technicalQuestions: z.array(z.object({
@@ -52,7 +50,6 @@ Rules:
 - Do not use snake_case field names.
 - Do not rename any field.`
 
-
     const response = await ai.models.generateContent({
         model: "gemini-3-flash-preview",
         contents: prompt,
@@ -61,7 +58,10 @@ Rules:
             responseSchema:zodToJsonSchema(interviewReportSchema)
         }
     })
-    console.log("AI RESPONSE", response.text);
-    return JSON.parse(response.text)
+    const result = JSON.parse(response.text)
+    console.log("AI RESULT", result);
+    console.log("AI KEYS",Object.keys(result));
+    console.log("AI RESPONSE",result); 
+    return result
 }
 module.exports = generateInterviewReport
