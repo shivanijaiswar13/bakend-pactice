@@ -58,10 +58,14 @@ Rules:
             responseSchema:zodToJsonSchema(interviewReportSchema)
         }
     })
-    const result = JSON.parse(response.text)
-    console.log("AI RESULT", result);
-    console.log("AI KEYS",Object.keys(result));
-    console.log("AI RESPONSE",result); 
-    return result
+    console.log("RAW AI RESPONSE:");
+console.log(response.text);
+
+const result = JSON.parse(response.text);
+
+console.log("PARSED AI RESULT:");
+console.log(JSON.stringify(result, null, 2));
+
+return result;
 }
 module.exports = generateInterviewReport
